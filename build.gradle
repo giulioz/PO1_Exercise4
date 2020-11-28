@@ -34,7 +34,7 @@ task copyStatic(type: Copy) {
 }
 
 processResources {
-//	dependsOn copyStatic
+	dependsOn copyStatic
 }
 
 dependencies {
