@@ -1,7 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.0'
-	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.4.0'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id "com.github.node-gradle.node" version "3.0.0-rc3"
+    id 'java'
 }
 
 group = 'it.unive.dais.po1'
@@ -9,14 +10,39 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
+}
+
+node {
+    nodeProjectDir = file("${project.projectDir}/src/main/resources/board-react-app")
+    download = true
+}
+
+task installDeps(type: YarnTask) {
+    args = ['install']
+}
+
+task buildReact(type: YarnTask) {
+    dependsOn installDeps
+    args = ['build']
+}
+
+task copyStatic(type: Copy) {
+    dependsOn buildReact
+    from 'src/main/resources/board-react-app/build'
+    into 'src/main/resources/static'
+}
+
+processResources {
+//	dependsOn copyStatic
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
