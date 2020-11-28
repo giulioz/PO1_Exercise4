@@ -67,7 +67,7 @@ export function Game() {
   const {
     playerAClass,
     playerBClass,
-    gameState,
+    lastGameState: gameState,
     needsInput,
     nextMove,
     doInput,

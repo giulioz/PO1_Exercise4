@@ -24,6 +24,7 @@ export type StateType = {
   setPlayerAClass(c: string): void;
 
   gameId: string | null;
+  lastGameState: GameState | null;
   gameState: GameState | null;
   needsInput: boolean;
   startGame(): Promise<void>;
@@ -76,6 +77,7 @@ export const useStore = create<StateType>(
 
     gameId: null,
     gameState: null,
+    lastGameState: null,
     needsInput: false,
 
     async startGame() {
@@ -86,22 +88,41 @@ export const useStore = create<StateType>(
           state.playerBClass,
         );
         const gameState = await getGameState(gameId);
-        set((s) => ({ ...s, currentPage: "GAME", gameId, gameState }));
+        set((s) => ({
+          ...s,
+          currentPage: "GAME",
+          gameId,
+          lastGameState: gameState,
+          gameState,
+        }));
+        await get().nextMove();
       }
     },
 
     async nextMove() {
       const state = get();
       if (state.gameId) {
-        const gameState = await advanceGame(state.gameId);
-        if (gameState === "NEEDS_INPUT") {
-          set((s) => ({ ...s, currentPage: "GAME", needsInput: true }));
-        } else {
+        try {
+          const gameState = await advanceGame(state.gameId);
+          if (gameState === "NEEDS_INPUT") {
+            set((s) => ({
+              ...s,
+              currentPage: "GAME",
+              lastGameState: s.gameState,
+              needsInput: true,
+            }));
+          } else {
+            set((s) => ({
+              ...s,
+              lastGameState: s.gameState,
+              gameState,
+              needsInput: false,
+            }));
+          }
+        } catch {
           set((s) => ({
             ...s,
-            currentPage: "GAME",
-            gameState,
-            needsInput: false,
+            lastGameState: s.gameState,
           }));
         }
       }
@@ -113,10 +134,10 @@ export const useStore = create<StateType>(
         const gameState = await giveInputGame(state.gameId, x, y);
         set((s) => ({
           ...s,
-          currentPage: "GAME",
           gameState,
           needsInput: false,
         }));
+        await get().nextMove();
       }
     },
   })),
