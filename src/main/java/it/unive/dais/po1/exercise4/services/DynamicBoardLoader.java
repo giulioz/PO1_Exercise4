@@ -33,7 +33,7 @@ public class DynamicBoardLoader {
   public Board getBoard(String name) throws IllegalPlayerException {
     for (Board p : boardTypes) {
       if (p.getClass().getAnnotation(Component.class).value().equals(name)) {
-        return p;
+        return p.clone();
       }
     }
 

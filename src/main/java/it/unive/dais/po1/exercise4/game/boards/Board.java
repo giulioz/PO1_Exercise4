@@ -111,4 +111,6 @@ abstract public class Board {
    */
   abstract public Mark winner();
 
+  abstract public Board clone();
+
 }

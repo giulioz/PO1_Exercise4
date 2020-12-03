@@ -27,6 +27,20 @@ public class GomokuBoard extends Board {
     return null;
   }
 
+  @Override
+  public Board clone() {
+    GomokuBoard board = new GomokuBoard();
+    for (int i = 0; i < this.getDimension(); i++)
+      for (int j = 0; j < this.getDimension(); j++)
+        try {
+          board.putMark(this.getMark(i, j), i, j);
+        } catch (GameException e) {
+          throw new RuntimeException("Impossible to clone the board");
+        }
+
+    return board;
+  }
+
 
   protected boolean isValidMove(Board previous, Mark diff) throws GameException {
     boolean first = true;
