@@ -1,6 +1,7 @@
 package it.unive.dais.po1.exercise4.game.players;
 
 import it.unive.dais.po1.exercise4.game.*;
+import it.unive.dais.po1.exercise4.game.boards.Board;
 import org.springframework.stereotype.Component;
 
 @Component("User Player")

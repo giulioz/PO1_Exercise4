@@ -1,81 +1,16 @@
-package it.unive.dais.po1.exercise4.game;
+package it.unive.dais.po1.exercise4.game.boards;
 
-public class Board {
-  private final Mark[][] board;
+import it.unive.dais.po1.exercise4.game.GameException;
+import it.unive.dais.po1.exercise4.game.Mark;
+import org.springframework.stereotype.Component;
 
-  /**
-   * Creates a square board
-   *
-   * @param dimension the dimension of the square board
-   */
-  public Board(int dimension) {
-    board = new Mark[dimension][dimension];
+@Component("Gomoku Board")
+public class GomokuBoard extends Board {
+
+  public GomokuBoard() {
+    super(15);
   }
 
-
-  /**
-   * Puts a mark in a given cell
-   *
-   * @param c the mark to put in the board
-   * @param x the x coordinate of the cell to be filled
-   * @param y the y coordinate of the cell to be filled
-   * @return true if the mark is not null, the cell is empty,
-   * the game is not ended (e.g., no winner yet) and
-   * it fills it, false otherwise
-   */
-  public boolean putMark(Mark c, int x, int y) throws GameException {
-    Mark previous = this.getMark(x, y);
-    if (previous != null || this.winner() != null || c == null)
-      return false;
-    board[x][y] = c;
-    return true;
-  }
-
-  /**
-   * Returns the mark of a cell, null if empty
-   *
-   * @param x the x coordinate of the cell
-   * @param y the y coordinate of the cell
-   * @return the mark in the given cell, null if the cell is empty
-   */
-  public Mark getMark(int x, int y) {
-    return board[x][y];
-  }
-
-  /**
-   * Returns the dimension of the square board
-   *
-   * @return the dimension of the square board
-   */
-  public int getDimension() {
-    return board.length;
-  }
-
-  /**
-   * Returns true if the board is full
-   *
-   * @return true iff the board is full
-   */
-  public boolean isFull() {
-    for (int x = 0; x < board.length; x++)
-      for (int y = 0; y < board.length; y++)
-        if (this.getMark(x, y) == null)
-          return false;
-    return true;
-  }
-
-  @Override
-  public String toString() {
-    String result = "";
-    for (int x = 0; x < this.getDimension(); x++) {
-      for (int y = 0; y < this.getDimension(); y++) {
-        Mark s = this.getMark(x, y);
-        result += (s == null ? " e " : (s == Mark.getCircle() ? " O " : " X "));
-      }
-      result += "\n";
-    }
-    return result;
-  }
 
   /**
    * Returns the winner of the game
@@ -140,9 +75,5 @@ public class Board {
         return actual;
     }
     return null;
-  }
-
-  public Mark[][] getData() {
-    return board;
   }
 }

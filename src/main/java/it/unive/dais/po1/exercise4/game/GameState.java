@@ -1,5 +1,7 @@
 package it.unive.dais.po1.exercise4.game;
 
+import it.unive.dais.po1.exercise4.game.boards.Board;
+
 public class GameState {
   private final Board currentBoard;
   private final Player[] players;

@@ -21,7 +21,8 @@ public class GameController {
           throws IllegalPlayerException {
     return gameService.createGame(
             body.getPlayerAType(),
-            body.getPlayerBType()
+            body.getPlayerBType(),
+            body.getBoardType()
     );
   }
 

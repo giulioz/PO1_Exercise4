@@ -1,6 +1,6 @@
 package it.unive.dais.po1.exercise4.game.players;
 
-import it.unive.dais.po1.exercise4.game.Board;
+import it.unive.dais.po1.exercise4.game.boards.Board;
 import it.unive.dais.po1.exercise4.game.GameException;
 import it.unive.dais.po1.exercise4.game.Mark;
 import it.unive.dais.po1.exercise4.game.Player;

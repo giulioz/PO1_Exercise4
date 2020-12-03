@@ -1,6 +1,6 @@
 package it.unive.dais.po1.exercise4.services;
 
-import it.unive.dais.po1.exercise4.game.Board;
+import it.unive.dais.po1.exercise4.game.boards.Board;
 import it.unive.dais.po1.exercise4.game.GameState;
 import it.unive.dais.po1.exercise4.game.Player;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,8 @@ public class GameService {
 
   @Autowired
   private DynamicPlayerLoader playerLoader;
+  @Autowired
+  private DynamicBoardLoader boardLoader;
 
   public GameState getGame(String gameId) throws NoSuchGameException {
     if (!games.containsKey(gameId)){
@@ -26,14 +28,14 @@ public class GameService {
     return games.get(gameId);
   }
 
-  public String createGame(String playerAType, String playerBType) throws IllegalPlayerException {
+  public String createGame(String playerAType, String playerBType, String boardType) throws IllegalPlayerException {
     Player playerA = playerLoader.getPlayer(playerAType);
     Player playerB = playerLoader.getPlayer(playerBType);
-    return createGame(playerA, playerB);
+    Board board = boardLoader.getBoard(boardType);
+    return createGame(playerA, playerB, board);
   }
 
-  public String createGame(Player playerA, Player playerB) {
-    Board board = new Board(DEFAULT_DIMENSION);
+  public String createGame(Player playerA, Player playerB, Board board) {
     GameState gameState = new GameState(board, new Player[]{playerA, playerB});
     String gameId = UUID.randomUUID().toString();
     games.put(gameId, gameState);
