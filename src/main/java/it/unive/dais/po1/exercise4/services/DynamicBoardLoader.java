@@ -21,7 +21,7 @@ public class DynamicBoardLoader {
     return boardTypes;
   }
 
-  public List<String> getPlayerNames() {
+  public List<String> getBoardNames() {
     List<Board> boardTypes = getBoardTypes();
     ArrayList<String> boardNames = new ArrayList<>();
     for (Board type : boardTypes) {
