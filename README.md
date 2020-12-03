@@ -1,6 +1,8 @@
 # PO1_Exercise4
 A small demo on how to build a multiplayer board game using Spring Boot and React.
 
+![screenshoot.png](screenshoot.png)
+
 ## Building and running
 
 The project is a Gradle Spring application. To run it you need to call the `bootRun` gradle task:
