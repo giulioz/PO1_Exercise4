@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import { useStore } from "../store";
-import { Board } from "../api";
+import { BoardDisplay } from "../components/BoardDisplay";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -19,47 +19,7 @@ const useStyles = makeStyles((theme) => ({
   action: {
     marginBottom: theme.spacing(3),
   },
-  board: {
-    display: "flex",
-    margin: theme.spacing(3),
-  },
-  row: {},
-  cell: {
-    border: "1px solid black",
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
 }));
-
-function BoardDisplay({
-  currentBoard,
-  onSelect,
-}: {
-  currentBoard: Board;
-  onSelect(x: number, y: number): void;
-}) {
-  const classes = useStyles();
-  return (
-    <div className={classes.board}>
-      {currentBoard.data.map((r, i) => (
-        <div key={i} className={classes.row}>
-          {r.map((c, j) => (
-            <div
-              key={`${i}-${j}`}
-              className={classes.cell}
-              onClick={() => onSelect(i, j)}
-            >
-              {c}
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
-  );
-}
 
 export function Game() {
   const classes = useStyles();
