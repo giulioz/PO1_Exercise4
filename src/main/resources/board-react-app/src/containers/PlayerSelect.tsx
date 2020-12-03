@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
   column: {
     display: "flex",
     flexDirection: "column",
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -30,23 +31,28 @@ export function PlayerSelect() {
 
   const {
     playerClasses,
+    requirePlayerClasses,
+    boardClasses,
+    requireBoardClasses,
     playerAClass,
     setPlayerBClass,
     playerBClass,
     setPlayerAClass,
+    boardType,
+    setBoardType,
     startGame,
-    requirePlayerClasses,
   } = useStore();
 
   useEffect(() => void requirePlayerClasses(), []);
+  useEffect(() => void requireBoardClasses(), []);
 
   function handlePlay() {
-    if (playerAClass && playerBClass) {
+    if (playerAClass && playerBClass && boardType) {
       startGame();
     }
   }
 
-  if (!playerClasses) {
+  if (!playerClasses || !boardClasses) {
     return null;
   }
 
@@ -55,8 +61,8 @@ export function PlayerSelect() {
       <Typography variant="h2" gutterBottom>
         Gomoku
       </Typography>
-      <Typography variant="h4" gutterBottom>
-        Select Players
+      <Typography variant="h5" gutterBottom>
+        Settings
       </Typography>
       <Grid container alignItems="center" justify="center" spacing={2}>
         <Grid item xs={8} md={4} className={classes.column}>
@@ -87,6 +93,22 @@ export function PlayerSelect() {
             {playerClasses.map((player) => (
               <MenuItem key={player} value={player}>
                 {player}
+              </MenuItem>
+            ))}
+          </Select>
+        </Grid>
+        <Grid item xs={8} md={4} className={classes.column}>
+          <Typography variant="h6" gutterBottom align="center">
+            Board
+          </Typography>
+          <Select
+            value={boardType}
+            onChange={(e) => setBoardType(e.target.value as string)}
+            variant="outlined"
+          >
+            {boardClasses.map((board) => (
+              <MenuItem key={board} value={board}>
+                {board}
               </MenuItem>
             ))}
           </Select>

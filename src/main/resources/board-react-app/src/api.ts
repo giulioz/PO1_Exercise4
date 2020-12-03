@@ -19,10 +19,20 @@ export async function getPlayerTypes() {
   return data;
 }
 
-export async function postNewGame(playerAType: string, playerBType: string) {
+export async function getBoardTypes() {
+  const res = await fetch(`${apiBase}/boardTypes`);
+  const data: string[] = await res.json();
+  return data;
+}
+
+export async function postNewGame(
+  playerAType: string,
+  playerBType: string,
+  boardType: string,
+) {
   const res = await fetch(`${apiBase}/game`, {
     method: "POST",
-    body: JSON.stringify({ playerAType, playerBType }),
+    body: JSON.stringify({ playerAType, playerBType, boardType }),
     headers: { "Content-Type": "application/json" },
   });
   const data: string = await res.text();

@@ -3,6 +3,7 @@ import { devtools } from "zustand/middleware";
 import {
   advanceGame,
   GameState,
+  getBoardTypes,
   getGameState,
   getPlayerTypes,
   giveInputGame,
@@ -17,11 +18,15 @@ export type StateType = {
 
   playerClasses: string[] | null;
   requirePlayerClasses(): Promise<void>;
+  boardClasses: string[] | null;
+  requireBoardClasses(): Promise<void>;
 
   playerAClass: string | null;
   setPlayerBClass(c: string): void;
   playerBClass: string | null;
   setPlayerAClass(c: string): void;
+  boardType: string | null;
+  setBoardType(c: string): void;
 
   gameId: string | null;
   lastGameState: GameState | null;
@@ -65,6 +70,15 @@ export const useStore = create<StateType>(
         playerBClass: playerClasses[0],
       }));
     },
+    boardClasses: null,
+    async requireBoardClasses() {
+      const boardClasses = await getBoardTypes();
+      set((s) => ({
+        ...s,
+        boardClasses,
+        boardType: boardClasses[0],
+      }));
+    },
 
     playerAClass: null,
     setPlayerAClass(playerAClass: string) {
@@ -74,6 +88,10 @@ export const useStore = create<StateType>(
     setPlayerBClass(playerBClass: string) {
       set((s) => ({ ...s, playerBClass }));
     },
+    boardType: null,
+    setBoardType(boardType: string) {
+      set((s) => ({ ...s, boardType }));
+    },
 
     gameId: null,
     gameState: null,
@@ -82,10 +100,11 @@ export const useStore = create<StateType>(
 
     async startGame() {
       const state = get();
-      if (state.playerAClass && state.playerBClass) {
+      if (state.playerAClass && state.playerBClass && state.boardType) {
         const gameId = await postNewGame(
           state.playerAClass,
           state.playerBClass,
+          state.boardType,
         );
         const gameState = await getGameState(gameId);
         set((s) => ({
