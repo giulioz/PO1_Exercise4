@@ -45,67 +45,69 @@ export function Game() {
     !gameState.winner && !gameState.currentBoard.full && !needsInput;
 
   return (
-    <Paper className={classes.paper}>
-      <Typography variant="h2" gutterBottom>
-        Gomoku
-      </Typography>
-      <Typography variant="h4" gutterBottom>
-        Player {gameState.playerMarks[gameState.lastPlayerIndex]} Turn
-      </Typography>
-
-      <BoardDisplay currentBoard={gameState.currentBoard} onSelect={doInput} />
-
-      {canProceed && (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleNext}
-          className={classes.action}
-        >
-          NEXT
-        </Button>
-      )}
-
-      {gameState.winner && (
-        <Typography gutterBottom variant="h4" color="error">
-          {gameState.winner} WON!
+    <>
+      <Paper className={classes.paper}>
+        <Typography variant="h4" gutterBottom>
+          Player {gameState.playerMarks[gameState.lastPlayerIndex]} Turn
         </Typography>
-      )}
 
-      {needsInput && (
-        <Typography gutterBottom variant="h4" color="primary">
-          Select a cell
-        </Typography>
-      )}
+        <BoardDisplay
+          currentBoard={gameState.currentBoard}
+          onSelect={doInput}
+        />
 
-      <Grid container alignItems="center" justify="center" spacing={2}>
-        <Grid item xs={8} md={4} className={classes.column}>
-          <Typography
-            variant="h6"
-            gutterBottom
-            align="center"
-            color={gameState.lastPlayerIndex === 0 ? "primary" : "initial"}
+        {canProceed && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleNext}
+            className={classes.action}
           >
-            Player {gameState.playerMarks[0]}
+            NEXT
+          </Button>
+        )}
+
+        {gameState.winner && (
+          <Typography gutterBottom variant="h4" color="error">
+            {gameState.winner} WON!
           </Typography>
-          <Typography gutterBottom align="center">
-            {playerAClass}
+        )}
+
+        {needsInput && (
+          <Typography gutterBottom variant="h4" color="primary">
+            Select a cell
           </Typography>
+        )}
+
+        <Grid container alignItems="center" justify="center" spacing={2}>
+          <Grid item xs={8} md={4} className={classes.column}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              align="center"
+              color={gameState.lastPlayerIndex === 0 ? "primary" : "initial"}
+            >
+              Player {gameState.playerMarks[0]}
+            </Typography>
+            <Typography gutterBottom align="center">
+              {playerAClass}
+            </Typography>
+          </Grid>
+          <Grid item xs={8} md={4} className={classes.column}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              align="center"
+              color={gameState.lastPlayerIndex === 1 ? "primary" : "initial"}
+            >
+              Player {gameState.playerMarks[1]}
+            </Typography>
+            <Typography gutterBottom align="center">
+              {playerBClass}
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={8} md={4} className={classes.column}>
-          <Typography
-            variant="h6"
-            gutterBottom
-            align="center"
-            color={gameState.lastPlayerIndex === 1 ? "primary" : "initial"}
-          >
-            Player {gameState.playerMarks[1]}
-          </Typography>
-          <Typography gutterBottom align="center">
-            {playerBClass}
-          </Typography>
-        </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </>
   );
 }

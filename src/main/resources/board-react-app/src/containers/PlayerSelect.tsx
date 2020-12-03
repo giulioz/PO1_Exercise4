@@ -18,11 +18,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: theme.spacing(2),
   },
+  settings: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(5),
+    alignSelf: "stretch",
+  },
   column: {
     display: "flex",
     flexDirection: "column",
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -59,61 +62,67 @@ export function PlayerSelect() {
   return (
     <Paper className={classes.paper}>
       <Typography variant="h2" gutterBottom>
-        Gomoku
+        Board Game
       </Typography>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h4" gutterBottom>
         Settings
       </Typography>
-      <Grid container alignItems="center" justify="center" spacing={2}>
-        <Grid item xs={8} md={4} className={classes.column}>
-          <Typography variant="h6" gutterBottom align="center">
-            Player A
-          </Typography>
-          <Select
-            value={playerAClass}
-            onChange={(e) => setPlayerAClass(e.target.value as string)}
-            variant="outlined"
-          >
-            {playerClasses.map((player) => (
-              <MenuItem key={player} value={player}>
-                {player}
-              </MenuItem>
-            ))}
-          </Select>
+
+      <div className={classes.settings}>
+        <Grid container alignItems="center" justify="center" spacing={2}>
+          <Grid item xs={8} md={4} className={classes.column}>
+            <Typography variant="h6" gutterBottom align="center">
+              Player A
+            </Typography>
+            <Select
+              value={playerAClass}
+              onChange={(e) => setPlayerAClass(e.target.value as string)}
+              variant="outlined"
+            >
+              {playerClasses.map((player) => (
+                <MenuItem key={player} value={player}>
+                  {player}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
+          <Grid item xs={8} md={4} className={classes.column}>
+            <Typography variant="h6" gutterBottom align="center">
+              Player B
+            </Typography>
+            <Select
+              value={playerBClass}
+              onChange={(e) => setPlayerBClass(e.target.value as string)}
+              variant="outlined"
+            >
+              {playerClasses.map((player) => (
+                <MenuItem key={player} value={player}>
+                  {player}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
         </Grid>
-        <Grid item xs={8} md={4} className={classes.column}>
-          <Typography variant="h6" gutterBottom align="center">
-            Player B
-          </Typography>
-          <Select
-            value={playerBClass}
-            onChange={(e) => setPlayerBClass(e.target.value as string)}
-            variant="outlined"
-          >
-            {playerClasses.map((player) => (
-              <MenuItem key={player} value={player}>
-                {player}
-              </MenuItem>
-            ))}
-          </Select>
+        <Grid container alignItems="center" justify="center" spacing={2}>
+          <Grid item xs={8} md={4} className={classes.column}>
+            <Typography variant="h6" gutterBottom align="center">
+              Board
+            </Typography>
+            <Select
+              value={boardType}
+              onChange={(e) => setBoardType(e.target.value as string)}
+              variant="outlined"
+            >
+              {boardClasses.map((board) => (
+                <MenuItem key={board} value={board}>
+                  {board}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
         </Grid>
-        <Grid item xs={8} md={4} className={classes.column}>
-          <Typography variant="h6" gutterBottom align="center">
-            Board
-          </Typography>
-          <Select
-            value={boardType}
-            onChange={(e) => setBoardType(e.target.value as string)}
-            variant="outlined"
-          >
-            {boardClasses.map((board) => (
-              <MenuItem key={board} value={board}>
-                {board}
-              </MenuItem>
-            ))}
-          </Select>
-        </Grid>
-      </Grid>
+      </div>
+
       <Button
         variant="contained"
         color="primary"
