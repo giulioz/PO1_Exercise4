@@ -128,7 +128,7 @@ export const useStore = create<StateType>(
               ...s,
               currentPage: "GAME",
               lastGameState: s.gameState,
-              needsInput: true,
+              needsInput: !state.gameState?.winner,
             }));
           } else {
             set((s) => ({

@@ -48,7 +48,10 @@ export function Game() {
     <>
       <Paper className={classes.paper}>
         <Typography variant="h4" gutterBottom>
-          Player {gameState.playerMarks[gameState.lastPlayerIndex]} Turn
+          {canProceed && (
+            <>Player {gameState.playerMarks[gameState.lastPlayerIndex]} Turn</>
+          )}
+          {gameState.winner && <>Game End!</>}
         </Typography>
 
         <BoardDisplay
