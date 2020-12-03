@@ -71,9 +71,19 @@ export function Game() {
         )}
 
         {gameState.winner && (
-          <Typography gutterBottom variant="h4" color="error">
-            {gameState.winner} WON!
-          </Typography>
+          <>
+            <Typography gutterBottom variant="h4" color="error">
+              {gameState.winner} WON!
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => window.location.reload()}
+              className={classes.action}
+            >
+              Restart
+            </Button>
+          </>
         )}
 
         {needsInput && (
