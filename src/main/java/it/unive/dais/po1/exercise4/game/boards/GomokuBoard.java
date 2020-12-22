@@ -60,28 +60,28 @@ public class GomokuBoard extends Board {
   private Mark winnerAt(int x, int y) {
     Mark actual = this.getMark(x, y);
     if (actual == null) return null;
-    if (x + 5 < this.getDimension()) {
+    if (x + 5 <= this.getDimension()) {
       if (actual == this.getMark(x + 1, y) &&
               actual == this.getMark(x + 2, y) &&
               actual == this.getMark(x + 3, y) &&
               actual == this.getMark(x + 4, y))
         return actual;
     }
-    if (y + 5 < this.getDimension()) {
+    if (y + 5 <= this.getDimension()) {
       if (actual == this.getMark(x, y + 1) &&
               actual == this.getMark(x, y + 2) &&
               actual == this.getMark(x, y + 3) &&
               actual == this.getMark(x, y + 4))
         return actual;
     }
-    if (x + 5 < this.getDimension() && y + 5 < this.getDimension()) {
+    if (x + 5 <= this.getDimension() && y + 5 <= this.getDimension()) {
       if (actual == this.getMark(x + 1, y + 1) &&
               actual == this.getMark(x + 2, y + 2) &&
               actual == this.getMark(x + 3, y + 3) &&
               actual == this.getMark(x + 4, y + 4))
         return actual;
     }
-    if (x - 4 >= 0 && y + 5 < this.getDimension()) {
+    if (x - 4 >= 0 && y + 5 <= this.getDimension()) {
       if (actual == this.getMark(x - 1, y + 1) &&
               actual == this.getMark(x - 2, y + 2) &&
               actual == this.getMark(x - 3, y + 3) &&
